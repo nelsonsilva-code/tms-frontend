@@ -1,6 +1,6 @@
 # Introduction
 
-This is a simple FE that allows for CRUD operations when connected to the ems-backend application.
+This is a simple FE that allows for CRUD operations when connected to the tms-backend application.
 
 # Starting the application
 
@@ -18,7 +18,7 @@ $sudo vim /etc/hosts
 127.0.0.1       localhost
 255.255.255.255 broadcasthost
 ::1             localhost
--> 127.0.0.1       ems.local                                                                                                                                                                                                                                                                                                                         
+-> 127.0.0.1       tms.local                                                                                                                                                                                                                                                                                                                         
 ```
 
 Run with `npm run dev`
