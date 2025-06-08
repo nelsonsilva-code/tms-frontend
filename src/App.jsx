@@ -5,6 +5,7 @@ import FooterComponent from "./components/FooterComponent.jsx";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import LoginComponent from "./components/LoginComponent.jsx";
 import EmployeeComponent from "./components/Todo.jsx";
+import RegisterComponent from "./components/RegisterComponent.jsx";
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
             <HeaderComponent />
             <Routes>
                 <Route path='/' element = {<LoginComponent />}></Route>
+                <Route path='/register' element = {<RegisterComponent />}></Route>
                 <Route path='/todos' element = {<ListEmployeeComponent />}></Route>
                 <Route path='/add-todo' element = {<EmployeeComponent />}></Route>
                 <Route path='/update-todo/:id' element={<EmployeeComponent />}></Route>
