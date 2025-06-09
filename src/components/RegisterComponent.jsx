@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import {Form, useNavigate} from "react-router-dom";
-import {createUser} from "../services/AuthService.JS";
+import { Link, useNavigate} from "react-router-dom";
+import { registerApi} from "../services/AuthService.JS";
 import ButtonComponent from "./ButtonComponent.jsx";
-import FormInput from './FormInput';
+import FormInput from './FormInputComponent.jsx';
 
 const RegisterComponent = () => {
 
@@ -25,8 +25,8 @@ const RegisterComponent = () => {
         const user = { name, username, email, password };
         if (validateForm()) {
             console.log(user)
-            createUser(user)
-                .then(() => navigate('/'))
+            registerApi(user)
+                .then(() => navigate('/todos'))
                 .catch(console.error);
         }
     }
@@ -126,6 +126,7 @@ const RegisterComponent = () => {
                                         text="Submit"
                                         onClick={registerUser}
                                     />
+                                    <p>Already registered? Login <Link to="/">here</Link>!</p>
                                 </div>
                             </form>
                         </div>
