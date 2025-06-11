@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Link, useNavigate} from "react-router-dom";
 import ButtonComponent from "./ButtonComponent.jsx";
 import FormInput from './FormInputComponent.jsx';
-import {loginApi} from "../services/AuthService.JS";
+import {loginApi, storeToken} from "../services/AuthService.JS";
 
 const LoginComponent = () => {
 
@@ -21,8 +21,11 @@ const LoginComponent = () => {
         const user = {  username, password };
         if (validateForm()) {
             console.log(user)
-            loginApi(username, password)
-                .then(() => navigate('/todos'))
+            loginApi(user)
+                .then(() => {
+                    storeToken('Basic ' + window.btoa(username+":"+password));
+                    navigate('/todos')
+                })
                 .catch(console.error);
         }
     }

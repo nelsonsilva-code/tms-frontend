@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import ButtonComponent from "./ButtonComponent.jsx";
 import {createTodo, getTodo, updateTodo} from "../services/TodoService.JS";
 import {useNavigate, useParams} from "react-router-dom";
+import FormInput from "./FormInputComponent.jsx";
 
 const TodoComponent = () => {
 
@@ -93,8 +94,8 @@ const TodoComponent = () => {
                     <h2 className='text-center'> {baseTitle()}</h2>
                     <div className='card-body'>
                         <form>
-                            <CreateFormInput label="Title" name="title" value={title} validation={errors.title} handleOnChange={(event) => setTitle(event.target.value)} />
-                            <CreateFormInput label="Description" name="description" value={description} validation={errors.description} handleOnChange={(event) => setDescription(event.target.value)} />
+                            <FormInput label="Title" name="title" value={title} validation={errors.title} handleOnChange={(event) => setTitle(event.target.value)} />
+                            <FormInput label="Description" name="description" value={description} validation={errors.description} handleOnChange={(event) => setDescription(event.target.value)} />
                             <div className='form-group mb-2'>
                                 <label className='form-label'>Completed</label>
                                 <select
@@ -115,22 +116,6 @@ const TodoComponent = () => {
                 </div>
 
             </div>
-        </div>
-    );
-};
-
-const CreateFormInput = ({ label, name, value, validation, handleOnChange }) => {
-    return (
-        <div className='form-group mb-2'>
-            <label className='form-label'> {label} </label>
-            <input
-                type='text'
-                placeholder={label}
-                name={name}
-                value={value}
-                className={`form-control ${validation ? 'is-invalid' : ''}`}
-                onChange={handleOnChange}
-            /> {validation && <div className='invalid-feedback'> {validation}</div>}
         </div>
     );
 };

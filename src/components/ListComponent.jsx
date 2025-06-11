@@ -15,17 +15,20 @@ const ListTodoComponent = () => {
         listTodos()
             .then((response) => {
                 setTodos(response.data);
-                console.log(response.data);
             })
             .catch((error) => {
-                console.log(error);
+                if (error.response?.status === 401) {
+                    navigator('/');
+                } else {
+                    console.log(error);
+                }
             });
     }
 
     function markCompleteTodo(id) {
         completeTodo(id)
             .then(() => {
-                listTodos()
+                getAllTodos()
             }).catch((error) => {
                 console.log(error);
             })
@@ -34,7 +37,7 @@ const ListTodoComponent = () => {
     function markIncompleteTodo(id) {
         incompleteTodo(id)
             .then(() => {
-                listTodos()
+                getAllTodos()
             }).catch((error) => {
             console.log(error);
         })
