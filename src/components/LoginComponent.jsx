@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Link, useNavigate} from "react-router-dom";
 import ButtonComponent from "./ButtonComponent.jsx";
 import FormInput from './FormInputComponent.jsx';
-import {loginApi, storeToken} from "../services/AuthService.JS";
+import {loginApi, storeRole, storeToken} from "../services/AuthService.JS";
 
 const LoginComponent = () => {
 
@@ -24,6 +24,7 @@ const LoginComponent = () => {
             loginApi(user)
                 .then((response) => {
                     storeToken(response.data.tokenType + " " + response.data.accessToken);
+                    storeRole(response.data.role);
                     navigate('/todos')
                 })
                 .catch(console.error);

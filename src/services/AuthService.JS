@@ -9,6 +9,8 @@ export const loginApi = (userData) => axios.post(`${REST_API_BASE_URL}/login`, u
 
 export const storeToken = (token) => localStorage.setItem("token", token);
 
+export const storeRole = (role) => localStorage.setItem("role", role);
+
 export const getToken = () => localStorage.getItem("token");
 
 export const clearToken = () => {localStorage.removeItem("token");}
