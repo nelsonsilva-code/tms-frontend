@@ -22,8 +22,8 @@ const LoginComponent = () => {
         if (validateForm()) {
             console.log(user)
             loginApi(user)
-                .then(() => {
-                    storeToken('Basic ' + window.btoa(username+":"+password));
+                .then((response) => {
+                    storeToken(response.data.tokenType + " " + response.data.accessToken);
                     navigate('/todos')
                 })
                 .catch(console.error);
