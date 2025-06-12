@@ -13,6 +13,19 @@ axios.interceptors.request.use(function (config) {
     return Promise.reject(error);
 })
 
+axios.interceptors.response.use(
+    function (response) {
+        return response;
+    },
+    function (error) {
+        if (error.response && error.response.status === 401) {
+            window.location.href = '/login';
+        }
+
+        return Promise.reject(error);
+    }
+);
+
 export const listTodos = () =>  axios.get(`${REST_API_BASE_URL}`, {})
 
 export const createTodo = (todoData) => axios.post(`${REST_API_BASE_URL}/create`, todoData)
