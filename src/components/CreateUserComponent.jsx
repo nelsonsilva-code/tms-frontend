@@ -36,7 +36,7 @@ const CreateUserComponent = () => {
         getRolesApi()
             .then(response => setRoleList(response.data))
             .catch(error => console.log(error));
-    })
+    }, [])
 
 
     function validateForm() {
@@ -112,10 +112,10 @@ const CreateUserComponent = () => {
                                     validation={errors.password}
                                     handleOnChange={e => setPassword(e.target.value)}
                                 />
-                                <div id="department" className='form-group mb-2'>
-                                    <label id="department-label" className='form-label'> Select Role </label>
+                                <div id="role" className='form-group mb-2'>
+                                    <label id="role-label" className='form-label'> Select Role </label>
                                     <select
-                                        id="department-select"
+                                        id="role-select"
                                         className={`form-control ${errors.role ? 'is-invalid' : ''}`}
                                         value={role}
                                         onChange={(e) => setRole(e.target.value)}

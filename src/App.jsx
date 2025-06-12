@@ -8,6 +8,8 @@ import EmployeeComponent from "./components/TodoComponent.jsx";
 import CreateUserComponent from "./components/CreateUserComponent.jsx";
 import HomeComponent from "./components/HomeComponent.jsx";
 import {getRole, getToken} from "./services/AuthService.JS";
+import CreateRoleComponent from "./components/CreateRoleComponent.jsx";
+import ListUsersComponent from "./components/ListUsersComponent.jsx";
 
 function App() {
 
@@ -42,6 +44,8 @@ function App() {
                 <Route path='/add-todo' element = {<AuthenticatedRoute><EmployeeComponent/></AuthenticatedRoute>}></Route>
                 <Route path='/update-todo/:id' element={<AuthenticatedRoute><EmployeeComponent/></AuthenticatedRoute>}></Route>
                 <Route path='/create-user' element = {<AuthenticatedAdminRoute><CreateUserComponent /></AuthenticatedAdminRoute>}></Route>
+                <Route path='/create-role' element = {<AuthenticatedAdminRoute><CreateRoleComponent /></AuthenticatedAdminRoute>}></Route>
+                <Route path='/users' element = {<AuthenticatedRoute><ListUsersComponent/></AuthenticatedRoute>}></Route>
                 <Route path='/' element = {<HomeComponent />}></Route>
                 <Route path='/login' element = {<LoginComponent />}></Route>
             </Routes>
