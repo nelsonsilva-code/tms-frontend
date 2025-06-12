@@ -93,7 +93,7 @@ const LoginComponent = () => {
                                         text="Submit"
                                         onClick={loginUser}
                                     />
-                                    <p>Not registered? Register <Link to="/register">here</Link>!</p>
+                                    <p>If you don't have an account, please request one to an Admin</p>
                                 </div>
                             </form>
                         </div>
