@@ -10,19 +10,17 @@ const RegisterComponent = () => {
 
     const [name, setName] = useState('')
     const [username, setUsername] = useState('')
-    const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
     const [errors, setErrors] = useState({
         name: '',
         username: '',
-        email: '',
         password: ''
     })
 
     function registerUser(event) {
         event.preventDefault();
-        const user = { name, username, email, password };
+        const user = { name, username, password };
         if (validateForm()) {
             console.log(user)
             registerApi(user)
@@ -38,7 +36,6 @@ const RegisterComponent = () => {
         const errorsCopy = {
             name: '',
             username: '',
-            email: '',
             password: ''
         };
 
@@ -46,7 +43,6 @@ const RegisterComponent = () => {
 
         const usernameRegex = /^[A-Za-z0-9_-]{1,12}$/;
 
-        const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
 
         const passwordRegex = /^(?=.*[A-Z])(?=.{12,}$)(?!.*\s)[A-Za-z\d!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+$/;
 
@@ -61,12 +57,6 @@ const RegisterComponent = () => {
         if (!username.trim() || !usernameRegex.test(username)) {
             errorsCopy.username =
                 'Username must be 1–12 characters; letters, numbers, underscores or hyphens only.';
-            valid = false;
-        }
-
-        // Email
-        if (!email.trim() || !emailRegex.test(email)) {
-            errorsCopy.email = 'Please enter a valid email address.';
             valid = false;
         }
 
@@ -97,13 +87,6 @@ const RegisterComponent = () => {
                                     value={name}
                                     validation={errors.name}
                                     handleOnChange={e => setName(e.target.value)}
-                                />
-                                <FormInput
-                                    label="Email"
-                                    name="email"
-                                    value={email}
-                                    validation={errors.email}
-                                    handleOnChange={e => setEmail(e.target.value)}
                                 />
                                 <FormInput
                                     label="Username"
