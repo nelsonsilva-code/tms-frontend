@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link, useLocation} from "react-router-dom";
-import {clearToken, getToken} from "../services/AuthService.JS";
+import {clearToken, getRole, getToken} from "../services/AuthService.JS";
 
 const HeaderComponent = () => {
 
@@ -16,6 +16,14 @@ const HeaderComponent = () => {
             return <Link className={`nav-link ${path === '/login' ? 'active' : ''}`} to="/login">Login</Link>
         }
     }
+
+    function isAdmin() {
+        const role = getRole()
+        if(role === 'ROLE_ADMIN') {
+            return <Link className={`nav-link ${path === '/create-user' ? 'active' : ''}`} to="/create-user">Create User</Link>
+        }
+    }
+
     return (
             <header>
                 <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -24,6 +32,7 @@ const HeaderComponent = () => {
                         <div className="navbar-nav">
                             <Link className={`nav-link ${path === '/' ? 'active' : ''}`} to="/">Home</Link>
                             <Link className={`nav-link ${path === '/todos' ? 'active' : ''}`} to="/todos">Todo's</Link>
+                            {isAdmin()}
                         </div>
                         <div className="navbar-nav ms-auto me-2">{getLoginLogout(isAuth)}</div>
                     </div>

@@ -1,33 +1,42 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Link, useNavigate} from "react-router-dom";
-import { registerApi} from "../services/AuthService.JS";
+import {createUserApi, getRolesApi} from "../services/AuthService.JS";
 import ButtonComponent from "./ButtonComponent.jsx";
 import FormInput from './FormInputComponent.jsx';
 
-const RegisterComponent = () => {
+const CreateUserComponent = () => {
 
     const navigate = useNavigate();
 
     const [name, setName] = useState('')
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [role, setRole] = useState('')
+    const [roleList, setRoleList] = useState([])
 
     const [errors, setErrors] = useState({
         name: '',
         username: '',
-        password: ''
+        password: '',
     })
 
     function registerUser(event) {
         event.preventDefault();
-        const user = { name, username, password };
+        console.log(name, username, password, role)
+        const user = { name, username, password, role };
         if (validateForm()) {
             console.log(user)
-            registerApi(user)
+            createUserApi(user)
                 .then(() => navigate('/todos'))
                 .catch(console.error);
         }
     }
+
+    useEffect(() => {
+        getRolesApi()
+            .then(response => setRoleList(response.data))
+            .catch(error => console.log(error));
+    })
 
 
     function validateForm() {
@@ -36,7 +45,7 @@ const RegisterComponent = () => {
         const errorsCopy = {
             name: '',
             username: '',
-            password: ''
+            password: '',
         };
 
         const nameRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ\s'-]{1,}$/;
@@ -103,13 +112,23 @@ const RegisterComponent = () => {
                                     validation={errors.password}
                                     handleOnChange={e => setPassword(e.target.value)}
                                 />
+                                <div className='form-group mb-2'>
+                                    <label className='form-label'> Select Department </label>
+                                    <select
+                                        className={`form-control ${errors.role ? 'is-invalid' : ''}`}
+                                        value={role}
+                                        onChange={(e) => setRole(e.target.value)}
+                                    >
+                                        <option value="" disabled hidden>Select Role</option>
+                                        { roleList.map((role) => <option value={role.name} key={role.id}>{role.name}</option>) }
+                                    </select>
+                                </div>
                                 <div className="d-grid mt-3">
                                     <ButtonComponent
                                         className="btn-success"
                                         text="Submit"
                                         onClick={registerUser}
                                     />
-                                    <p>Already registered? Login <Link to="/">here</Link>!</p>
                                 </div>
                             </form>
                         </div>
@@ -121,4 +140,4 @@ const RegisterComponent = () => {
 };
 
 
-export default RegisterComponent;
+export default CreateUserComponent;

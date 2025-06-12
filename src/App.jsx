@@ -5,9 +5,9 @@ import FooterComponent from "./components/FooterComponent.jsx";
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import LoginComponent from "./components/LoginComponent.jsx";
 import EmployeeComponent from "./components/TodoComponent.jsx";
-import RegisterComponent from "./components/RegisterComponent.jsx";
+import CreateUserComponent from "./components/CreateUserComponent.jsx";
 import HomeComponent from "./components/HomeComponent.jsx";
-import {getToken} from "./services/AuthService.JS";
+import {getRole, getToken} from "./services/AuthService.JS";
 
 function App() {
 
@@ -20,6 +20,19 @@ function App() {
         return <Navigate to="/login" />;
     }
 
+    function AuthenticatedAdminRoute({children}) {
+        const token = getToken();
+        const isAuth = Boolean(token);
+        if (isAuth) {
+            const role = getRole();
+            if (role === 'ROLE_ADMIN') {
+                return children
+            } else {
+                return <Navigate to="/todos" />
+            }
+        }
+    }
+
   return (
     <>
         <BrowserRouter>
@@ -28,10 +41,9 @@ function App() {
                 <Route path='/todos' element = {<AuthenticatedRoute><ListEmployeeComponent/></AuthenticatedRoute>}></Route>
                 <Route path='/add-todo' element = {<AuthenticatedRoute><EmployeeComponent/></AuthenticatedRoute>}></Route>
                 <Route path='/update-todo/:id' element={<AuthenticatedRoute><EmployeeComponent/></AuthenticatedRoute>}></Route>
+                <Route path='/create-user' element = {<AuthenticatedAdminRoute><CreateUserComponent /></AuthenticatedAdminRoute>}></Route>
                 <Route path='/' element = {<HomeComponent />}></Route>
                 <Route path='/login' element = {<LoginComponent />}></Route>
-                <Route path='/register' element = {<RegisterComponent />}></Route>
-
             </Routes>
             <FooterComponent />
         </BrowserRouter>
