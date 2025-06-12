@@ -41,10 +41,9 @@ const RegisterComponent = () => {
 
         const nameRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ\s'-]{1,}$/;
 
-        const usernameRegex = /^[A-Za-z0-9_-]{1,12}$/;
+        const usernameRegex = /^[a-z0-9_]{1,12}$/;
 
-
-        const passwordRegex = /^(?=.*[A-Z])(?=.{12,}$)(?!.*\s)[A-Za-z\d!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+$/;
+        const passwordRegex = /^(?=.*[A-Z])(?=.{12,}$)(?!.*\s)[A-Za-z\d!@_-]+$/;
 
         // First Name
         if (!name.trim() || !nameRegex.test(name)) {
@@ -56,14 +55,15 @@ const RegisterComponent = () => {
         // Username
         if (!username.trim() || !usernameRegex.test(username)) {
             errorsCopy.username =
-                'Username must be 1–12 characters; letters, numbers, underscores or hyphens only.';
+                'Username must be at most 12 characters long, contain only lowercase letters, no spaces and only allowed special characters: _';
             valid = false;
         }
+
 
         // Password
         if (!password || !passwordRegex.test(password)) {
             errorsCopy.password =
-                'Password must be at least 12 characters, include one uppercase, no spaces, and may contain letters, numbers & special chars.';
+                'Password must be at least 12 characters long, contain at least one uppercase letter, no spaces, and only allowed special characters: ! @ _ -';
             valid = false;
         }
 
