@@ -39,14 +39,14 @@ const LoginComponent = () => {
             password: ''
         };
 
-        const usernameRegex = /^[A-Za-z0-9_-]{1,12}$/;
+        const usernameRegex = /^[a-z0-9_]{1,12}$/;
 
-        const passwordRegex = /^(?=.*[A-Z])(?=.{12,}$)(?!.*\s)[A-Za-z\d!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+$/;
+        const passwordRegex = /^(?=.*[A-Z])(?=.{12,}$)(?!.*\s)[A-Za-z\d!@_-]+$/;
 
         // Username
         if (!username.trim() || !usernameRegex.test(username)) {
             errorsCopy.username =
-                'Please enter a valid username.';
+                'Username must be at most 12 characters long, contain only lowercase letters, no spaces and only allowed special characters: _';
             valid = false;
         }
 
@@ -54,7 +54,7 @@ const LoginComponent = () => {
         // Password
         if (!password || !passwordRegex.test(password)) {
             errorsCopy.password =
-                'Please enter a valid password.';
+                'Password must be at least 12 characters long, contain at least one uppercase letter, no spaces, and only allowed special characters: ! @ _ -';
             valid = false;
         }
 
