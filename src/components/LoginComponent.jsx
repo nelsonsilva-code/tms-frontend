@@ -11,56 +11,18 @@ const LoginComponent = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
-    const [errors, setErrors] = useState({
-        username: '',
-        password: ''
-    })
-
     function loginUser(event) {
         event.preventDefault();
         const user = {  username, password };
-        if (validateForm()) {
-            console.log(user)
-            loginApi(user)
-                .then((response) => {
-                    storeToken(response.data.tokenType + " " + response.data.accessToken);
-                    storeRole(response.data.role);
-                    navigate('/todos')
-                })
-                .catch(console.error);
-        }
-    }
+        console.log(user)
+        loginApi(user)
+            .then((response) => {
+                storeToken(response.data.tokenType + " " + response.data.accessToken);
+                storeRole(response.data.role);
+                navigate('/todos')
+            })
+            .catch(console.error);
 
-
-    function validateForm() {
-        let valid = true;
-
-        const errorsCopy = {
-            username: '',
-            password: ''
-        };
-
-        const usernameRegex = /^[a-z0-9_]{1,12}$/;
-
-        const passwordRegex = /^(?=.*[A-Z])(?=.{12,}$)(?!.*\s)[A-Za-z\d!@_-]+$/;
-
-        // Username
-        if (!username.trim() || !usernameRegex.test(username)) {
-            errorsCopy.username =
-                'Username must be at most 12 characters long, contain only lowercase letters, no spaces and only allowed special characters: _';
-            valid = false;
-        }
-
-
-        // Password
-        if (!password || !passwordRegex.test(password)) {
-            errorsCopy.password =
-                'Password must be at least 12 characters long, contain at least one uppercase letter, no spaces, and only allowed special characters: ! @ _ -';
-            valid = false;
-        }
-
-        setErrors(errorsCopy);
-        return valid;
     }
 
     return (
@@ -77,7 +39,6 @@ const LoginComponent = () => {
                                     label="Username"
                                     name="username"
                                     value={username}
-                                    validation={errors.username}
                                     handleOnChange={e => setUsername(e.target.value)}
                                 />
                                 <FormInput
@@ -85,7 +46,6 @@ const LoginComponent = () => {
                                     label="Password"
                                     name="password"
                                     value={password}
-                                    validation={errors.password}
                                     handleOnChange={e => setPassword(e.target.value)}
                                 />
                                 <div className="d-grid mt-3">
