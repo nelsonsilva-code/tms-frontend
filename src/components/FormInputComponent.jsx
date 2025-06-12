@@ -8,12 +8,12 @@ const FormInput = ({
   validation,
   handleOnChange
 }) => (
-  <div className="form-group mb-3">
-    <label htmlFor={name} className="form-label">
+  <div id={name} className="form-group mb-3">
+    <label htmlFor={name} id={name + "-label"} className="form-label">
       {label}
     </label>
     <input
-      id={name}
+      id={name + '-input'}
       type={type}
       name={name}
       placeholder={label}

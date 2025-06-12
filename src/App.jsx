@@ -25,7 +25,7 @@ function App() {
         const isAuth = Boolean(token);
         if (isAuth) {
             const role = getRole();
-            if (role === 'ROLE_ADMIN') {
+            if(['ROLE_ADMIN', 'ROLE_MANAGER'].includes(role)) {
                 return children
             } else {
                 return <Navigate to="/todos" />

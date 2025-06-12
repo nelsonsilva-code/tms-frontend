@@ -1,6 +1,8 @@
 import React from 'react';
-import {Link, useLocation} from "react-router-dom";
+import {Link, Links, useLocation} from "react-router-dom";
 import {clearToken, getRole, getToken} from "../services/AuthService.JS";
+import NavDropdown from 'react-bootstrap/NavDropdown';
+
 
 const HeaderComponent = () => {
 
@@ -19,8 +21,13 @@ const HeaderComponent = () => {
 
     function isAdmin() {
         const role = getRole()
-        if(role === 'ROLE_ADMIN') {
-            return <Link className={`nav-link ${path === '/create-user' ? 'active' : ''}`} to="/create-user">Create User</Link>
+        if(['ROLE_ADMIN', 'ROLE_MANAGER'].includes(role)) {
+            return <NavDropdown id="nav-dropdown" title="Management" menuVariant="dark">
+                <NavDropdown.Item href="/create-user">Create user</NavDropdown.Item>
+                <NavDropdown.Item href="/create-role">Create role</NavDropdown.Item>
+                <NavDropdown.Item href="/users">User list</NavDropdown.Item>
+            </NavDropdown>
+
         }
     }
 

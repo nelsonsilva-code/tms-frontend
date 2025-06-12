@@ -112,9 +112,10 @@ const CreateUserComponent = () => {
                                     validation={errors.password}
                                     handleOnChange={e => setPassword(e.target.value)}
                                 />
-                                <div className='form-group mb-2'>
-                                    <label className='form-label'> Select Department </label>
+                                <div id="department" className='form-group mb-2'>
+                                    <label id="department-label" className='form-label'> Select Role </label>
                                     <select
+                                        id="department-select"
                                         className={`form-control ${errors.role ? 'is-invalid' : ''}`}
                                         value={role}
                                         onChange={(e) => setRole(e.target.value)}
